@@ -1,0 +1,178 @@
+SQL Questions
+MySQL Test (20 Questions) – Difficult Level
+
+1. Basic Query with LIMIT
+Retrieve the first 5 employees by highest salary.
+Hint: Use LIMIT .
+
+select first_name,salary
+from employees 
+order by desc 
+limit 5
+																	
+																		
+2. OFFSET with Sorting
+Retrieve the 5 employees with the lowest salary, skipping the first 10 records.
+Hint: Combine ORDER BY with LIMIT and OFFSET .
+
+select first_name, salary
+from employees
+order by ASC
+limit 5 offset 10                                          
+										   
+
+3. Aggregate with HAVING
+Display each department's total salary, but only show departments where the total salary exceeds $30,000.
+Hint: Use GROUP BY and HAVING .
+
+select department_name , salary
+from employees join departments on
+employees.department_id = departments.department_id
+group by departments
+having sum(salary)>30,000
+
+
+4. Conditional Logic ( CASE Statement)
+For each employee, display their salary and a note if it is above or below $7000.
+Hint: Use the CASE statement.
+
+select first_name,salary
+CASE
+when salary>7000 then "Greater salary"
+when salary<7000 then "Lesser salary"
+else
+salary is 7000
+end as Salary_note
+from employee
+
+
+5. Date Functions
+List the projects that started in the last 6 months.
+Hint: Use CURDATE() and DATE_SUB() .
+
+select project_id,project_name,start_date from projects where date_sub(curdate(),Interval 6 month)
+
+
+6. RIGHT JOIN with Null Handling
+Display all projects, including those with no employees assigned.
+Hint: Use RIGHT JOIN .
+
+
+
+7. Update Query with a Condition
+Increase the salary of all employees in the 'Finance' department by 12%.
+Hint: Use UPDATE .
+
+update employee set salary = salary + (salary * 0.12) where department_id=3
+
+
+8. String Functions
+Retrieve the first and last names of employees whose last names start with 'S'.
+Hint: Use LIKE .
+
+select first_name,last_name from employees where last_name like 'S%'
+
+
+9. Aggregation with COUNT
+Count the number of employees assigned to each department.
+Hint: Use COUNT and GROUP BY.
+
+select count(e_id), department_name 
+from departments join employee on
+employee.e_id = department.e_id
+group by department_name
+
+
+10. JOIN and Aggregation
+Find the total number of hours worked by employees on each project.
+Hint: Use JOIN and SUM .
+
+select ename,sum(hours_worked)
+from employees join employee_projects on
+employees.eid = employee_projects.eid
+group by employee_projects.project_id
+
+
+11. Subquery with Aggregation
+Select the employees who earn more than the average salary.
+Hint: Use a subquery to find the average salary.
+
+select first_name,salary from employees	where salary >(select avg(salary) from employees)
+
+
+12. Date Formatting
+Display each project's start date in the format 'Month Day, Year' (e.g., January 01, 2024).
+Hint: Use DATE_FORMAT() .
+
+select project_name,start_date from projects where DATE_FORMAT(start_date,'%M,%d,%Y');
+
+
+13. Multiple Joins
+List all employees, their department names, and the projects they have worked on.
+Hint: Use multiple JOIN clauses.
+
+
+
+14. Using RIGHT JOIN and CASE
+List all projects, showing 'Assigned' if any employees are assigned and 'Unassigned' otherwise.
+Hint: Use RIGHT JOIN with CASE .
+
+15. Aggregation with Conditions
+Find the average salary of employees in each department, but only show departments where more than 5 employees work.
+Hint: Use GROUP BY with HAVING .
+
+select avg(salary),department_id
+from employees
+group by department_id
+having count(e_id)>5
+
+
+16. String Manipulation
+Concatenate employees' first and last names into a single full name, separated by a space.
+Hint: Use CONCAT() .
+
+select concat(first_name,' ',last_name)AS full_name from employees
+
+
+17. Update Query with Multiple Conditions
+Set all employees with salaries above $8000 and belonging to the 'IT' department to a new salary of $8500.
+Hint: Use UPDATE with WHERE .
+
+update employee set salary = '8500'
+where department_id = 2 AND salary > 8000;
+
+
+18. Nested Queries
+Find the employee with the highest salary who works in the 'HR' department.
+Hint: Use a subquery with MAX() .
+
+select department,salary from employee where department_id = '1' (select max(salary) from employee)
+
+select max(salary),first_name,department_id
+from employee
+where department_id = 1
+
+
+19. Date Calculation
+Find employees who have been assigned to projects that will end within the next 2 months.
+Hint: Use CURDATE() and DATE_ADD() .
+
+select e_id,project_id,end_date
+from projects join EmployeeProjects
+on projects.project_id = EmployeeProjects.project_id
+where end_date 
+
+
+20. Join and Aggregation with SUM and HAVING
+For each project, show the total salary billed based on the hours worked by employees, but only for projects 
+where total billing exceeds
+$10,000.
+Hint: Use JOIN , SUM , and HAVING .
+
+
+
+
+
+
+
+
